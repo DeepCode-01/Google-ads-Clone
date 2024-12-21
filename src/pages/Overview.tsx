@@ -1,6 +1,6 @@
 import React from 'react';
 import { StatCard } from '../components/Dashboard/StatCard';
-import { PerformanceChart } from '../components/Dashboard/PerformanceChart';
+import  PerformanceChart from '../components/Dashboard/PerformanceChart';
 import {
   TrendingUp,
   MousePointer,
