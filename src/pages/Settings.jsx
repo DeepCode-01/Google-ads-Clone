@@ -1,146 +1,233 @@
-import React from 'react';
-import { PageHeader } from '../components/Common/PageHeader';
-import { User, Bell, Shield, Globe, CreditCard, HelpCircle } from 'lucide-react';
+import React, { useState } from "react";
+import { PageHeader } from "../components/Common/PageHeader";
+import {
+  User,
+  Bell,
+  Shield,
+  Globe,
+  CreditCard,
+  Users,
+  Wallet,
+  Building,
+  ChevronRight,
+} from "lucide-react";
+
+const mockProfileData = {
+  accountName: "Example Corporation",
+  email: "admin@example.com",
+  timeZone: "Eastern Time (ET)",
+  accountId: "987-654-3210",
+  currency: "USD",
+  billingInfo: {
+    plan: "Premium",
+    nextBilling: "January 1, 2024",
+    amount: "$999.00",
+  },
+  notifications: {
+    campaigns: true,
+    budget: false,
+    reports: true,
+    security: true,
+    updates: false,
+  },
+};
+
+const mockAccountStatus = {
+  accountType: "Enterprise",
+  status: "Active",
+  memberSince: "January 2022",
+  lastLogin: "Today at 10:15 AM",
+  securityLevel: "High",
+  twoFactorEnabled: true,
+  linkedAccounts: 5,
+  activeUsers: 15,
+};
+
+const mockBillingHistory = [
+  {
+    date: "Dec 1, 2023",
+    amount: "$999.00",
+    status: "Paid",
+    invoice: "#INV-123",
+  },
+  {
+    date: "Nov 1, 2023",
+    amount: "$999.00",
+    status: "Paid",
+    invoice: "#INV-122",
+  },
+  {
+    date: "Oct 1, 2023",
+    amount: "$999.00",
+    status: "Paid",
+    invoice: "#INV-121",
+  },
+];
+
+const mockNotificationSettings = [
+  { label: "Campaign Updates", key: "campaigns" },
+  { label: "Budget Alerts", key: "budget" },
+  { label: "Report Summaries", key: "reports" },
+  { label: "Security Notifications", key: "security" },
+  { label: "Product Updates", key: "updates" },
+];
 
 export function Settings() {
+  const [activeSection, setActiveSection] = useState("profile");
+
   return (
-    <div className="space-y-6">
-      <PageHeader title="Account Settings" />
+    <div className="p-6 bg-gray-50 min-h-screen space-y-6">
+      {/* Header */}
+      <div className="mb-8">
+        <PageHeader title="Account Settings" />
+        <div className="text-sm text-gray-500 flex items-center gap-2 mt-2">
+          <span>Dashboard</span>
+          <ChevronRight className="w-4 h-4" />
+          <span className="text-gray-900">Settings</span>
+        </div>
+      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="md:col-span-2 space-y-6">
-          <div className="bg-white p-6 rounded-lg shadow-sm">
-            <h2 className="text-lg font-semibold mb-4">Profile Information</h2>
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Account Name
-                </label>
-                <input
-                  type="text"
-                  className="w-full px-3 py-2 border rounded-lg"
-                  value="Google Ads Account"
-                />
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Email Address
-                </label>
-                <input
-                  type="email"
-                  className="w-full px-3 py-2 border rounded-lg"
-                  value="admin@company.com"
-                />
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Time Zone
-                </label>
-                <select className="w-full px-3 py-2 border rounded-lg">
-                  <option>Eastern Time (ET)</option>
-                  <option>Pacific Time (PT)</option>
-                  <option>Central Time (CT)</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white p-6 rounded-lg shadow-sm">
-            <h2 className="text-lg font-semibold mb-4">Notification Settings</h2>
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="font-medium">Campaign Performance Alerts</p>
-                  <p className="text-sm text-gray-600">Get notified about significant changes</p>
-                </div>
-                <label className="relative inline-flex items-center cursor-pointer">
-                  <input type="checkbox" className="sr-only peer" checked />
-                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
-                </label>
-              </div>
-              
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="font-medium">Budget Alerts</p>
-                  <p className="text-sm text-gray-600">Notify when nearing budget limits</p>
-                </div>
-                <label className="relative inline-flex items-center cursor-pointer">
-                  <input type="checkbox" className="sr-only peer" checked />
-                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
-                </label>
-              </div>
-              
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="font-medium">Email Reports</p>
-                  <p className="text-sm text-gray-600">Weekly performance summaries</p>
-                </div>
-                <label className="relative inline-flex items-center cursor-pointer">
-                  <input type="checkbox" className="sr-only peer" />
-                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
-                </label>
-              </div>
-            </div>
+      {/* Layout Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        {/* Sidebar Navigation */}
+        <div className="lg:col-span-1">
+          <div className="bg-white rounded-lg shadow-sm p-4">
+            <nav className="space-y-1">
+              {[
+                { icon: User, label: "Profile", id: "profile" },
+                { icon: Bell, label: "Notifications", id: "notifications" },
+                { icon: Shield, label: "Security", id: "security" },
+                { icon: Building, label: "Organization", id: "organization" },
+                { icon: Wallet, label: "Billing", id: "billing" },
+                { icon: Users, label: "Team", id: "team" },
+                { icon: Globe, label: "Preferences", id: "preferences" },
+              ].map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => setActiveSection(item.id)}
+                  className={`w-full flex items-center gap-3 px-4 py-3 text-left rounded-lg transition-colors ${
+                    activeSection === item.id
+                      ? "bg-blue-50 text-blue-600"
+                      : "hover:bg-gray-50 text-gray-700"
+                  }`}
+                >
+                  <item.icon
+                    className={`w-5 h-5 ${
+                      activeSection === item.id
+                        ? "text-blue-600"
+                        : "text-gray-500"
+                    }`}
+                  />
+                  <span className="font-medium">{item.label}</span>
+                </button>
+              ))}
+            </nav>
           </div>
         </div>
 
-        <div className="space-y-6">
-          <div className="bg-white p-6 rounded-lg shadow-sm">
-            <h2 className="text-lg font-semibold mb-4">Quick Actions</h2>
-            <div className="space-y-3">
-              <button className="w-full flex items-center gap-3 px-4 py-2 text-left hover:bg-gray-50 rounded-lg">
-                <User className="w-5 h-5 text-gray-600" />
-                <span>Edit Profile</span>
-              </button>
-              
-              <button className="w-full flex items-center gap-3 px-4 py-2 text-left hover:bg-gray-50 rounded-lg">
-                <Bell className="w-5 h-5 text-gray-600" />
-                <span>Notification Preferences</span>
-              </button>
-              
-              <button className="w-full flex items-center gap-3 px-4 py-2 text-left hover:bg-gray-50 rounded-lg">
-                <Shield className="w-5 h-5 text-gray-600" />
-                <span>Security Settings</span>
-              </button>
-              
-              <button className="w-full flex items-center gap-3 px-4 py-2 text-left hover:bg-gray-50 rounded-lg">
-                <Globe className="w-5 h-5 text-gray-600" />
-                <span>Language & Region</span>
-              </button>
-              
-              <button className="w-full flex items-center gap-3 px-4 py-2 text-left hover:bg-gray-50 rounded-lg">
-                <CreditCard className="w-5 h-5 text-gray-600" />
-                <span>Billing Settings</span>
-              </button>
-              
-              <button className="w-full flex items-center gap-3 px-4 py-2 text-left hover:bg-gray-50 rounded-lg">
-                <HelpCircle className="w-5 h-5 text-gray-600" />
-                <span>Help & Support</span>
-              </button>
-            </div>
-          </div>
-
-          <div className="bg-white p-6 rounded-lg shadow-sm">
-            <h2 className="text-lg font-semibold mb-4">Account Status</h2>
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">Account Type</span>
-                <span className="font-medium">Professional</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">Status</span>
-                <span className="px-2 py-1 text-xs font-semibold text-green-800 bg-green-100 rounded-full">
-                  Active
-                </span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">Member Since</span>
-                <span className="font-medium">March 2024</span>
+        {/* Main Content */}
+        <div className="lg:col-span-3 space-y-6">
+          {/* Dynamic Sections */}
+          {activeSection === "profile" && (
+            <div className="bg-white rounded-lg shadow-sm p-6">
+              <h2 className="text-xl font-semibold">Profile Information</h2>
+              <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Account Name
+                  </label>
+                  <input
+                    type="text"
+                    className="mt-1 w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    value={mockProfileData.accountName}
+                    readOnly
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Email Address
+                  </label>
+                  <input
+                    type="email"
+                    className="mt-1 w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    value={mockProfileData.email}
+                    readOnly
+                  />
+                </div>
               </div>
             </div>
-          </div>
+          )}
+          {activeSection === "notifications" && (
+            <div className="bg-white rounded-lg shadow-sm p-6">
+              <h2 className="text-xl font-semibold">Notification Settings</h2>
+              <div className="mt-4 space-y-4">
+                {mockNotificationSettings.map((setting) => (
+                  <div
+                    key={setting.key}
+                    className="flex items-center justify-between"
+                  >
+                    <span className="text-sm text-gray-700">
+                      {setting.label}
+                    </span>
+                    <input
+                      type="checkbox"
+                      checked={mockProfileData.notifications[setting.key]}
+                      className="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                      readOnly
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+          {activeSection === "billing" && (
+            <div className="bg-white rounded-lg shadow-sm p-6">
+              <h2 className="text-xl font-semibold">Billing Information</h2>
+              <div className="mt-4">
+                <div className="mb-6">
+                  <p className="text-sm text-gray-600">
+                    Plan:{" "}
+                    <span className="font-medium">
+                      {mockProfileData.billingInfo.plan}
+                    </span>
+                  </p>
+                  <p className="text-sm text-gray-600">
+                    Next Billing Date:{" "}
+                    <span className="font-medium">
+                      {mockProfileData.billingInfo.nextBilling}
+                    </span>
+                  </p>
+                  <p className="text-sm text-gray-600">
+                    Amount:{" "}
+                    <span className="font-medium">
+                      {mockProfileData.billingInfo.amount}
+                    </span>
+                  </p>
+                </div>
+                <div className="divide-y">
+                  {mockBillingHistory.map((entry, index) => (
+                    <div
+                      key={index}
+                      className="flex justify-between py-2 text-sm"
+                    >
+                      <span>{entry.date}</span>
+                      <span>{entry.invoice}</span>
+                      <span>{entry.amount}</span>
+                      <span
+                        className={`${
+                          entry.status === "Paid"
+                            ? "text-green-600"
+                            : "text-red-600"
+                        }`}
+                      >
+                        {entry.status}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
