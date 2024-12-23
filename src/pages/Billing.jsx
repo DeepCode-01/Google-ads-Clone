@@ -210,7 +210,7 @@ export function Billing() {
             <div>
               <h3 className="font-semibold text-blue-900">Important Notice</h3>
               <p className="text-sm text-blue-800 mt-1">
-                Your next billing cycle starts on March 31, 2024. To avoid any
+                Your next billing cycle starts on March 31, 2025. To avoid any
                 service interruptions, please ensure your payment method is up
                 to date.
               </p>

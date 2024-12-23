@@ -12,26 +12,26 @@ import { TrendingUp, MousePointer, DollarSign, Target } from "lucide-react";
 
 function StatCard({ title, value, change, isPositive, icon: Icon }) {
   return (
-    <div className="bg-white p-6 rounded-lg shadow-sm">
+    <div className="bg-white p-4 sm:p-6 rounded-lg shadow-sm">
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-sm text-gray-600">{title}</p>
-          <h3 className="text-2xl font-semibold mt-1">{value}</h3>
+          <p className="text-xs sm:text-sm text-gray-600">{title}</p>
+          <h3 className="text-xl sm:text-2xl font-semibold mt-1">{value}</h3>
         </div>
         <div
-          className={`p-3 rounded-full ${
+          className={`p-2 sm:p-3 rounded-full ${
             isPositive ? "bg-green-100" : "bg-red-100"
           }`}
         >
           <Icon
-            className={`w-6 h-6 ${
+            className={`w-5 h-5 sm:w-6 sm:h-6 ${
               isPositive ? "text-green-600" : "text-red-600"
             }`}
           />
         </div>
       </div>
       <p
-        className={`mt-2 text-sm ${
+        className={`mt-2 text-xs sm:text-sm ${
           isPositive ? "text-green-600" : "text-red-600"
         }`}
       >
@@ -53,9 +53,9 @@ const performanceData = [
 
 function PerformanceChart() {
   return (
-    <div className="bg-white p-6 rounded-lg shadow-sm">
-      <h2 className="text-lg font-semibold mb-4">Performance Over Time</h2>
-      <div className="h-[300px]">
+    <div className="bg-white p-4 sm:p-6 rounded-lg shadow-sm">
+      <h2 className="text-base sm:text-lg font-semibold mb-4">Performance Over Time</h2>
+      <div className="h-[250px] sm:h-[300px]">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={performanceData}>
             <CartesianGrid strokeDasharray="3 3" />
@@ -87,11 +87,11 @@ function PerformanceChart() {
 
 export function Overview() {
   return (
-    <div className="space-y-6 p-6 bg-gray-50 min-h-screen">
-      <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-semibold">Dashboard Overview</h1>
-        <div className="flex gap-2">
-          <select className="px-4 py-2 border rounded-lg">
+    <div className="space-y-4 sm:space-y-6 p-4 sm:p-6 bg-gray-50 min-h-screen">
+      <div className="flex flex-col sm:flex-row gap-4 sm:gap-0 justify-between sm:items-center">
+        <h1 className="text-xl sm:text-2xl font-semibold">Dashboard Overview</h1>
+        <div className="w-full sm:w-auto">
+          <select className="w-full sm:w-auto px-3 sm:px-4 py-2 border rounded-lg text-sm">
             <option>Last 7 days</option>
             <option>Last 30 days</option>
             <option>Last 90 days</option>
@@ -99,7 +99,7 @@ export function Overview() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <StatCard
           title="Impressions"
           value="125.4K"

@@ -21,9 +21,10 @@ import {
   Filter,
   Download,
   Settings,
+  Menu,
+  X,
 } from "lucide-react";
 
-// Enhanced mock data
 const performanceData = [
   { date: "01/03", clicks: 2400, impressions: 4000, cost: 240 },
   { date: "02/03", clicks: 1398, impressions: 3000, cost: 210 },
@@ -67,241 +68,288 @@ const campaignData = [
 export function Customers() {
   const [timeRange, setTimeRange] = useState("7days");
   const [searchTerm, setSearchTerm] = useState("");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div className="p-6 bg-gray-50 min-h-screen">
-      {/* Top Navigation Bar */}
-      <div className="bg-white p-4 rounded-lg shadow-sm mb-6 flex justify-between items-center">
-        <div className="flex items-center space-x-4">
-          <h1 className="text-2xl font-bold text-gray-800">
-            Google Ads Dashboard
-          </h1>
-          <div className="flex items-center bg-gray-100 rounded-lg px-3 py-2">
-            <Search className="h-5 w-5 text-gray-400" />
-            <input
-              type="text"
-              placeholder="Search campaigns..."
-              className="bg-transparent border-none focus:outline-none ml-2"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-          </div>
-        </div>
-        <div className="flex items-center space-x-4">
-          <button className="bg-white text-gray-700 shadow-md px-4 py-2 flex items-center justify-center space-x-2 rounded-lg hover:bg-gray-100 transition duration-200">
-            <Filter className="h-4 w-4 text-gray-500" />
-            <span>Filters</span>
-          </button>
-          <button className="bg-white text-gray-700 shadow-md px-4 py-2 flex items-center justify-center space-x-2 rounded-lg hover:bg-gray-100 transition duration-200">
-            <Download className="h-4 w-4 text-gray-500" />
-            <span>Export</span>
-          </button>
-          <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-200">
-            + New Campaign
-          </button>
-        </div>
-      </div>
+    <div className="bg-gray-50 min-h-screen">
+      <div className="bg-white p-4 lg:p-6 shadow-sm mb-4 lg:mb-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex justify-between items-center">
+            <div className="flex items-center space-x-4">
+              <h1 className="text-xl lg:text-2xl font-bold text-gray-800">
+                Google Ads Dashboard
+              </h1>
 
-      {/* Time Range Selector */}
-      <div className="mb-6 flex items-center space-x-4">
-        <select
-          className="border rounded-lg px-4 py-2"
-          value={timeRange}
-          onChange={(e) => setTimeRange(e.target.value)}
-        >
-          <option value="7days">Last 7 days</option>
-          <option value="30days">Last 30 days</option>
-          <option value="90days">Last 90 days</option>
-          <option value="custom">Custom range</option>
-        </select>
-        <div className="text-sm text-gray-500">Mar 1, 2024 - Mar 7, 2024</div>
-      </div>
+              <button
+                className="lg:hidden"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              >
+                {mobileMenuOpen ? (
+                  <X className="h-6 w-6 text-gray-600" />
+                ) : (
+                  <Menu className="h-6 w-6 text-gray-600" />
+                )}
+              </button>
+            </div>
 
-      {/* Enhanced Metric Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <MetricCard
-          title="Total Spend"
-          value="$12,345"
-          change="+12.5%"
-          positive={true}
-          icon={<DollarSign />}
-          bgColor="bg-blue-50"
-          iconColor="text-blue-600"
-          subtext="Budget: $15,000"
-        />
-        <MetricCard
-          title="Clicks"
-          value="45.2K"
-          change="+8.1%"
-          positive={true}
-          icon={<MousePointer />}
-          bgColor="bg-green-50"
-          iconColor="text-green-600"
-          subtext="Goal: 50K"
-        />
-        <MetricCard
-          title="Impressions"
-          value="128K"
-          change="-2.3%"
-          positive={false}
-          icon={<Eye />}
-          bgColor="bg-purple-50"
-          iconColor="text-purple-600"
-          subtext="Goal: 150K"
-        />
-        <MetricCard
-          title="Conversions"
-          value="1,234"
-          change="+5.7%"
-          positive={true}
-          icon={<Target />}
-          bgColor="bg-orange-50"
-          iconColor="text-orange-600"
-          subtext="Goal: 1.5K"
-        />
-      </div>
-
-      {/* Enhanced Charts Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-        <div className="bg-white p-6 rounded-xl shadow-sm">
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-xl font-semibold">Performance Trends</h2>
-            <select className="border rounded-lg px-3 py-2">
-              <option>Clicks</option>
-              <option>Impressions</option>
-              <option>Cost</option>
-              <option>CTR</option>
-            </select>
-          </div>
-          <div className="h-[300px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={performanceData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="date" />
-                <YAxis />
-                <Tooltip />
-                <Line
-                  type="monotone"
-                  dataKey="clicks"
-                  stroke="#2563eb"
-                  strokeWidth={2}
+            <div className="hidden lg:flex items-center space-x-4">
+              <div className="flex items-center bg-gray-100 rounded-lg px-3 py-2">
+                <Search className="h-5 w-5 text-gray-400" />
+                <input
+                  type="text"
+                  placeholder="Search campaigns..."
+                  className="bg-transparent border-none focus:outline-none ml-2 w-48"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
                 />
-                <Line
-                  type="monotone"
-                  dataKey="impressions"
-                  stroke="#7c3aed"
-                  strokeWidth={2}
-                />
-                <Line
-                  type="monotone"
-                  dataKey="cost"
-                  stroke="#059669"
-                  strokeWidth={2}
-                />
-              </LineChart>
-            </ResponsiveContainer>
+              </div>
+              <button className="bg-white text-gray-700 shadow-md px-4 py-2 flex items-center justify-center space-x-2 rounded-lg hover:bg-gray-100 transition duration-200">
+                <Filter className="h-4 w-4 text-gray-500" />
+                <span>Filters</span>
+              </button>
+              <button className="bg-white text-gray-700 shadow-md px-4 py-2 flex items-center justify-center space-x-2 rounded-lg hover:bg-gray-100 transition duration-200">
+                <Download className="h-4 w-4 text-gray-500" />
+                <span>Export</span>
+              </button>
+              <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-200">
+                + New Campaign
+              </button>
+            </div>
           </div>
-        </div>
 
-        <div className="bg-white p-6 rounded-xl shadow-sm">
-          <h2 className="text-xl font-semibold mb-6">Campaign Performance</h2>
-          <div className="h-[300px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={performanceData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="date" />
-                <YAxis />
-                <Tooltip />
-                <Bar dataKey="clicks" fill="#2563eb" />
-                <Bar dataKey="impressions" fill="#7c3aed" />
-                <Bar dataKey="cost" fill="#059669" />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
+          {mobileMenuOpen && (
+            <div className="lg:hidden mt-4 space-y-4">
+              <div className="flex items-center bg-gray-100 rounded-lg px-3 py-2">
+                <Search className="h-5 w-5 text-gray-400" />
+                <input
+                  type="text"
+                  placeholder="Search campaigns..."
+                  className="bg-transparent border-none focus:outline-none ml-2 w-full"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+              </div>
+              <div className="flex flex-col space-y-2">
+                <button className="bg-white text-gray-700 shadow-md px-4 py-2 flex items-center justify-center space-x-2 rounded-lg hover:bg-gray-100 transition duration-200">
+                  <Filter className="h-4 w-4 text-gray-500" />
+                  <span>Filters</span>
+                </button>
+                <button className="bg-white text-gray-700 shadow-md px-4 py-2 flex items-center justify-center space-x-2 rounded-lg hover:bg-gray-100 transition duration-200">
+                  <Download className="h-4 w-4 text-gray-500" />
+                  <span>Export</span>
+                </button>
+                <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-200 w-full">
+                  + New Campaign
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
-      {/* Enhanced Campaign Table */}
-      <div className="bg-white rounded-xl shadow-sm">
-        <div className="p-6 border-b flex justify-between items-center">
-          <h2 className="text-xl font-semibold">Active Campaigns</h2>
-          <div className="flex items-center space-x-4">
-          <button className="bg-white text-gray-700 shadow-md px-4 py-2 flex items-center justify-center space-x-2 rounded-lg hover:bg-gray-100 transition duration-200">
-              <Settings className="h-4 w-4 text-gray-500" />
-              <span>Columns</span>
-            </button>
-            <button className="bg-white text-gray-700 shadow-md px-4 py-2 flex items-center justify-center space-x-2 rounded-lg hover:bg-gray-100 transition duration-200">
-              <Filter className="h-4 w-4 text-gray-500" />
-              <span>Filter</span>
-            </button>
+      <div className="max-w-7xl mx-auto px-4 lg:px-6">
+        <div className="mb-6 flex flex-col lg:flex-row lg:items-center space-y-2 lg:space-y-0 lg:space-x-4">
+          <select
+            className="border rounded-lg px-4 py-2"
+            value={timeRange}
+            onChange={(e) => setTimeRange(e.target.value)}
+          >
+            <option value="7days">Last 7 days</option>
+            <option value="30days">Last 30 days</option>
+            <option value="90days">Last 90 days</option>
+            <option value="custom">Custom range</option>
+          </select>
+          <div className="text-sm text-gray-500">Mar 1, 2024 - Mar 7, 2024</div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-6 lg:mb-8">
+          <MetricCard
+            title="Total Spend"
+            value="$12,345"
+            change="+12.5%"
+            positive={true}
+            icon={<DollarSign />}
+            bgColor="bg-blue-50"
+            iconColor="text-blue-600"
+            subtext="Budget: $15,000"
+          />
+          <MetricCard
+            title="Clicks"
+            value="45.2K"
+            change="+8.1%"
+            positive={true}
+            icon={<MousePointer />}
+            bgColor="bg-green-50"
+            iconColor="text-green-600"
+            subtext="Goal: 50K"
+          />
+          <MetricCard
+            title="Impressions"
+            value="128K"
+            change="-2.3%"
+            positive={false}
+            icon={<Eye />}
+            bgColor="bg-purple-50"
+            iconColor="text-purple-600"
+            subtext="Goal: 150K"
+          />
+          <MetricCard
+            title="Conversions"
+            value="1,234"
+            change="+5.7%"
+            positive={true}
+            icon={<Target />}
+            bgColor="bg-orange-50"
+            iconColor="text-orange-600"
+            subtext="Goal: 1.5K"
+          />
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          <div className="bg-white p-4 lg:p-6 rounded-xl shadow-sm">
+            <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center mb-6 space-y-2 lg:space-y-0">
+              <h2 className="text-lg lg:text-xl font-semibold">
+                Performance Trends
+              </h2>
+              <select className="border rounded-lg px-3 py-2">
+                <option>Clicks</option>
+                <option>Impressions</option>
+                <option>Cost</option>
+                <option>CTR</option>
+              </select>
+            </div>
+            <div className="h-[300px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={performanceData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="date" />
+                  <YAxis />
+                  <Tooltip />
+                  <Line
+                    type="monotone"
+                    dataKey="clicks"
+                    stroke="#2563eb"
+                    strokeWidth={2}
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="impressions"
+                    stroke="#7c3aed"
+                    strokeWidth={2}
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="cost"
+                    stroke="#059669"
+                    strokeWidth={2}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+
+          <div className="bg-white p-4 lg:p-6 rounded-xl shadow-sm">
+            <h2 className="text-lg lg:text-xl font-semibold mb-6">
+              Campaign Performance
+            </h2>
+            <div className="h-[300px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={performanceData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="date" />
+                  <YAxis />
+                  <Tooltip />
+                  <Bar dataKey="clicks" fill="#2563eb" />
+                  <Bar dataKey="impressions" fill="#7c3aed" />
+                  <Bar dataKey="cost" fill="#059669" />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
           </div>
         </div>
-        <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Campaign
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Status
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Budget
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Spent
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Clicks
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Conversions
-                </th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {campaignData.map((campaign) => (
-                <tr key={campaign.id}>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm font-medium text-gray-900">
-                      {campaign.name}
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span
-                      className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                        campaign.status === "Active"
-                          ? "bg-green-100 text-green-800"
-                          : "bg-yellow-100 text-yellow-800"
-                      }`}
-                    >
-                      {campaign.status}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {campaign.budget}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {campaign.spent}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {campaign.clicks}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {campaign.conversions}
-                  </td>
+
+        <div className="bg-white rounded-xl shadow-sm mb-8">
+          <div className="p-4 lg:p-6 border-b flex flex-col lg:flex-row lg:justify-between lg:items-center space-y-2 lg:space-y-0">
+            <h2 className="text-lg lg:text-xl font-semibold">
+              Active Campaigns
+            </h2>
+            <div className="flex items-center space-x-2 lg:space-x-4">
+              <button className="bg-white text-gray-700 shadow-md px-3 lg:px-4 py-2 flex items-center justify-center space-x-2 rounded-lg hover:bg-gray-100 transition duration-200">
+                <Settings className="h-4 w-4 text-gray-500" />
+                <span className="hidden lg:inline">Columns</span>
+              </button>
+              <button className="bg-white text-gray-700 shadow-md px-3 lg:px-4 py-2 flex items-center justify-center space-x-2 rounded-lg hover:bg-gray-100 transition duration-200">
+                <Filter className="h-4 w-4 text-gray-500" />
+                <span className="hidden lg:inline">Filter</span>
+              </button>
+            </div>
+          </div>
+          <div className="overflow-x-auto">
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Campaign
+                  </th>
+                  <th className="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Status
+                  </th>
+                  <th className="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Budget
+                  </th>
+                  <th className="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Spent
+                  </th>
+                  <th className="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Clicks
+                  </th>
+                  <th className="px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Conversions
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {campaignData.map((campaign) => (
+                  <tr key={campaign.id}>
+                    <td className="px-4 lg:px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm font-medium text-gray-900">
+                        {campaign.name}
+                      </div>
+                    </td>
+                    <td className="px-4 lg:px-6 py-4 whitespace-nowrap">
+                      <span
+                        className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                          campaign.status === "Active"
+                            ? "bg-green-100 text-green-800"
+                            : "bg-yellow-100 text-yellow-800"
+                        }`}
+                      >
+                        {campaign.status}
+                      </span>
+                    </td>
+                    <td className="px-4 lg:px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      {campaign.budget}
+                    </td>
+                    <td className="px-4 lg:px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      {campaign.spent}
+                    </td>
+                    <td className="px-4 lg:px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      {campaign.clicks}
+                    </td>
+                    <td className="px-4 lg:px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      {campaign.conversions}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
   );
 }
 
-// Metric Card Component
 function MetricCard({
   title,
   value,
@@ -313,12 +361,14 @@ function MetricCard({
   subtext,
 }) {
   return (
-    <div className={`p-6 rounded-xl shadow`}>
+    <div className="bg-white p-4 lg:p-6 rounded-xl shadow">
       <div className="flex justify-between items-start">
         <div>
           <p className="text-gray-500 text-sm mb-1">{title}</p>
-          <h3 className="text-2xl font-bold text-gray-900">{value}</h3>
-          <p className="text-gray-500 text-sm">{subtext}</p>
+          <h3 className="text-xl lg:text-2xl font-bold text-gray-900">
+            {value}
+          </h3>
+          <p className="text-gray-500 text-xs lg:text-sm">{subtext}</p>
         </div>
         <div className={`${iconColor} p-2 rounded-lg`}>{icon}</div>
       </div>
