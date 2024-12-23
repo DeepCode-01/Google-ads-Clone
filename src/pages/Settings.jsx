@@ -5,7 +5,6 @@ import {
   Bell,
   Shield,
   Globe,
-  CreditCard,
   Users,
   Wallet,
   Building,
@@ -71,6 +70,30 @@ const mockNotificationSettings = [
   { label: "Security Notifications", key: "security" },
   { label: "Product Updates", key: "updates" },
 ];
+
+const mockSecuritySettings = {
+  twoFactorAuth: true,
+  loginAlerts: true,
+  passwordChange: "Last changed 3 months ago",
+};
+
+const mockOrganizationData = {
+  organizationName: "Example Corporation",
+  address: "1234 Example St, Example City, EX 12345",
+  phone: "+1 (123) 456-7890",
+};
+
+const mockTeamMembers = [
+  { name: "John Doe", role: "Admin", email: "john@example.com" },
+  { name: "Jane Smith", role: "Editor", email: "jane@example.com" },
+  { name: "Bob Johnson", role: "Viewer", email: "bob@example.com" },
+];
+
+const mockPreferences = {
+  language: "English",
+  dateFormat: "MM/DD/YYYY",
+  timeFormat: "12-hour",
+};
 
 export function Settings() {
   const [activeSection, setActiveSection] = useState("profile");
@@ -154,6 +177,39 @@ export function Settings() {
                     readOnly
                   />
                 </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Time Zone
+                  </label>
+                  <input
+                    type="text"
+                    className="mt-1 w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    value={mockProfileData.timeZone}
+                    readOnly
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Account ID
+                  </label>
+                  <input
+                    type="text"
+                    className="mt-1 w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    value={mockProfileData.accountId}
+                    readOnly
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Currency
+                  </label>
+                  <input
+                    type="text"
+                    className="mt-1 w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    value={mockProfileData.currency}
+                    readOnly
+                  />
+                </div>
               </div>
             </div>
           )}
@@ -177,6 +233,86 @@ export function Settings() {
                     />
                   </div>
                 ))}
+              </div>
+            </div>
+          )}
+          {activeSection === "security" && (
+            <div className="bg-white rounded-lg shadow-sm p-6">
+              <h2 className="text-xl font-semibold">Security Settings</h2>
+              <div className="mt-4 space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-gray-700">
+                    Two-Factor Authentication
+                  </span>
+                  <input
+                    type="checkbox"
+                    checked={mockSecuritySettings.twoFactorAuth}
+                    className="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                    readOnly
+                  />
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-gray-700">Login Alerts</span>
+                  <input
+                    type="checkbox"
+                    checked={mockSecuritySettings.loginAlerts}
+                    className="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                    readOnly
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Password Change
+                  </label>
+                  <input
+                    type="text"
+                    className="mt-1 w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    value={mockSecuritySettings.passwordChange}
+                    readOnly
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+          {activeSection === "organization" && (
+            <div className="bg-white rounded-lg shadow-sm p-6">
+              <h2 className="text-xl font-semibold">
+                Organization Information
+              </h2>
+              <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Organization Name
+                  </label>
+                  <input
+                    type="text"
+                    className="mt-1 w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    value={mockOrganizationData.organizationName}
+                    readOnly
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Address
+                  </label>
+                  <input
+                    type="text"
+                    className="mt-1 w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    value={mockOrganizationData.address}
+                    readOnly
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Phone
+                  </label>
+                  <input
+                    type="text"
+                    className="mt-1 w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    value={mockOrganizationData.phone}
+                    readOnly
+                  />
+                </div>
               </div>
             </div>
           )}
@@ -224,6 +360,67 @@ export function Settings() {
                       </span>
                     </div>
                   ))}
+                </div>
+              </div>
+            </div>
+          )}
+          {activeSection === "team" && (
+            <div className="bg-white rounded-lg shadow-sm p-6">
+              <h2 className="text-xl font-semibold">Team Members</h2>
+              <div className="mt-4 space-y-4">
+                {mockTeamMembers.map((member, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center justify-between"
+                  >
+                    <div>
+                      <p className="text-sm font-medium text-gray-700">
+                        {member.name}
+                      </p>
+                      <p className="text-sm text-gray-500">{member.role}</p>
+                    </div>
+                    <p className="text-sm text-gray-500">{member.email}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+          {activeSection === "preferences" && (
+            <div className="bg-white rounded-lg shadow-sm p-6">
+              <h2 className="text-xl font-semibold">Preferences</h2>
+              <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Language
+                  </label>
+                  <input
+                    type="text"
+                    className="mt-1 w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    value={mockPreferences.language}
+                    readOnly
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Date Format
+                  </label>
+                  <input
+                    type="text"
+                    className="mt-1 w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    value={mockPreferences.dateFormat}
+                    readOnly
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Time Format
+                  </label>
+                  <input
+                    type="text"
+                    className="mt-1 w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    value={mockPreferences.timeFormat}
+                    readOnly
+                  />
                 </div>
               </div>
             </div>

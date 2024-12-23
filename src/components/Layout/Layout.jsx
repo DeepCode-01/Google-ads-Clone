@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { Outlet } from 'react-router-dom';
-import { Header } from './Header';
-import { Sidebar } from './Sidebar';
+import React, { useState } from "react";
+import { Outlet } from "react-router-dom";
+import { Header } from "./Header";
+import { Sidebar } from "./Sidebar";
 
 export function Layout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -11,8 +11,8 @@ export function Layout() {
       <Header toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
       <Sidebar isOpen={isSidebarOpen} />
       <main
-        className={`pt-14 transition-all duration-300 ${
-          isSidebarOpen ? 'ml-64' : 'ml-16'
+        className={`pt-14 transition-all duration-300 ml-10  ${
+          isSidebarOpen ? "md:ml-64" : "md:ml-16"
         }`}
       >
         <div className="p-6">

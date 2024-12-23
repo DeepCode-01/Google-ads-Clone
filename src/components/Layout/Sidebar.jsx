@@ -1,5 +1,5 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React from "react";
+import { NavLink } from "react-router-dom";
 import {
   LayoutDashboard,
   Megaphone,
@@ -8,23 +8,23 @@ import {
   Users,
   Settings,
   DollarSign,
-} from 'lucide-react';
+} from "lucide-react";
 
 const navItems = [
-  { to: '/', icon: LayoutDashboard, label: 'Overview' },
-  { to: '/campaigns', icon: Megaphone, label: 'Campaigns' },
-  { to: '/analytics', icon: BarChart3, label: 'Analytics' },
-  { to: '/audiences', icon: Target, label: 'Audiences' },
-  { to: '/customers', icon: Users, label: 'Customers' },
-  { to: '/billing', icon: DollarSign, label: 'Billing' },
-  { to: '/settings', icon: Settings, label: 'Settings' },
+  { to: "/", icon: LayoutDashboard, label: "Overview" },
+  { to: "/campaigns", icon: Megaphone, label: "Campaigns" },
+  { to: "/analytics", icon: BarChart3, label: "Analytics" },
+  { to: "/audiences", icon: Target, label: "Audiences" },
+  { to: "/customers", icon: Users, label: "Customers" },
+  { to: "/billing", icon: DollarSign, label: "Billing" },
+  { to: "/settings", icon: Settings, label: "Settings" },
 ];
 
 export function Sidebar({ isOpen }) {
   return (
     <aside
       className={`fixed left-0 top-14 h-[calc(100vh-3.5rem)] bg-white border-r border-gray-200 transition-all duration-300 ${
-        isOpen ? 'w-64' : 'w-16'
+        isOpen ? "md:w-64" : "md:w-16"
       } z-40`}
     >
       <nav className="p-2">
@@ -35,13 +35,15 @@ export function Sidebar({ isOpen }) {
             className={({ isActive }) =>
               `flex items-center gap-3 px-3 py-2 rounded-lg transition-colors ${
                 isActive
-                  ? 'bg-blue-50 text-blue-600'
-                  : 'text-gray-700 hover:bg-gray-100'
+                  ? "bg-blue-50 text-blue-600"
+                  : "text-gray-700 hover:bg-gray-100"
               }`
             }
           >
             <Icon className="w-5 h-5 shrink-0" />
-            <span className={`${!isOpen && 'hidden'}`}>{label}</span>
+            <span className={`${!isOpen ? "hidden" : "hidden md:flex"}`}>
+              {label}
+            </span>
           </NavLink>
         ))}
       </nav>
